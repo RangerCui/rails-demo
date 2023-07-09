@@ -1,0 +1,16 @@
+
+
+example_job:
+  cron: "6 6 6 6 6"
+  class: "ExampleJob"
+  queue: low
+
+monthly_summary:
+  cron: "0 1 1 * *"
+  class: "MonthlySummaryJob"
+  queue: low
+
+annual_summary:
+  cron: "0 0 1 1 *"
+  class: "AnnualSummaryJob"
+  queue: low

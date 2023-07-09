@@ -1,0 +1,35 @@
+@startuml 'System flow chart'
+actor User #red
+participant service
+participant "ApplicationAPI" as Api
+participant "LegitimateDetectionHelper" as CheckHelper
+participant "AuthHelper" as AuthHelper
+participant "BusinessAPI" as BusinessApi
+participant "CheckParams" as CheckParams
+participant "BusinessCommand" as BusinessCommand
+entity      Entity      as Ent
+database    Database    as DB
+queue       Sidekiq     as Work
+
+User->service: sends the request
+service->Api: Access ApplicationAPI
+Api->CheckHelper: Request validity check
+CheckHelper->CheckHelper: indicates whether the request source is valid
+CheckHelper--[#red]>User: indicates that the source of the request is unknown and the request is invalid
+CheckHelper->CheckHelper: Checks whether the request is malicious
+CheckHelper--[#red]>User: This parameter is called by a malicious interface if the frequency of requests per unit time is too high
+Api->AuthHelper: User permission authentication
+AuthHelper--[#red]>User: The user does not exist or is invalid
+Api->BusinessApi: Enter the business logic processing API
+BusinessApi->CheckParams: parameter check
+CheckParams--[#red]>User: parameter is invalid or invalid
+CheckParams-[#green]>BusinessCommand: indicates business processing
+BusinessCommand->DB: performs operations such as data update or creation
+BusinessCommand-->Work: Calls the asynchronous queue
+note right
+If there is an asynchronous queue call in command,
+Then this step exists
+end note
+BusinessCommand->Ent: The organization returns the data structure
+Ent->User: Return data (encrypted data return)
+@enduml

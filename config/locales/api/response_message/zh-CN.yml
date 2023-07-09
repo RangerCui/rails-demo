@@ -1,0 +1,12 @@
+zh-CN:
+  api:
+    response_message:
+      success: 请求成功
+      failed: 请求失败
+      auth_failed: 身份认证失败
+      api_params_error: 接口参数异常
+      cmd_validate_error: 逻辑层验证通用异常
+      cmd_validate_mix_error: 逻辑层验证混合异常
+      cmd_validate_invalid_error: 逻辑层未通过验证异常
+      cmd_validate_required_error: 逻辑层必须验证异常
+      authorize_failed: 权限验证失败，无权进行该操作

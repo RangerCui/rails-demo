@@ -1,0 +1,47 @@
+defaults: &defaults
+  # domain
+  domain: 'localhost:8080'
+  # 生产环境flag
+  rails_production: false
+  # puma配置
+  puma:
+    rails_threads: 5
+    worker_timeout: 3600
+  # 数据库配置
+  database:
+    # RSpec专用数据库
+    rspec:
+      database: rails_demo_test
+      pool: 5
+      username: root
+      password: 123456
+      host: 127.0.0.1
+      port: 3306
+  # redis配置
+  redis:
+    # 默认redis
+    default:
+      db: 1
+      host: localhost
+      password:
+      port: 6379
+    sidekiq:
+      db: 6
+      host: localhost
+      password:
+      port: 6379
+  # sidekiq
+  sidekiq:
+    user: 'admin'
+    password: 'qwerdf'
+
+development:
+  <<: *defaults
+
+# 测试环境
+test:
+  <<: *defaults
+
+# 生产环境
+production:
+  <<: *defaults

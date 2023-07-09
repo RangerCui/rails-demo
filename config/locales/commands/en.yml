@@ -1,0 +1,4 @@
+en:
+  commands:
+    invalidate_page: "Page parameter verification exception, please reset!"
+    invalidate_per_page: "PerPage parameter verification exception, please reset!"

@@ -1,0 +1,4 @@
+zh-CN:
+  commands:
+    invalidate_page: "page参数验证异常，请重新设置！"
+    invalidate_per_page: "per_page参数验证异常，请重新设置！"

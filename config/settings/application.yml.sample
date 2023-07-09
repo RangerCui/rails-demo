@@ -1,0 +1,54 @@
+defaults: &defaults
+  # domain
+  domain: 'localhost:8080'
+  # 生产环境flag
+  rails_production: false
+  # puma配置
+  puma:
+    rails_threads: 5
+    worker_timeout: 3600
+  # 数据库配置
+  database:
+    # RSpec专用数据库
+    rspec:
+      database: bidding
+      pool: 5
+      username: root
+      password: 123456
+      host: 127.0.0.1
+      port: 3308
+  # redis配置
+  redis:
+    # 默认redis
+    default:
+      db: 1
+      host: localhost
+      password:
+      port: 6379
+    sidekiq:
+      db: 6
+      host: localhost
+      password:
+      port: 6379
+  # sidekiq
+  sidekiq:
+    user: 'admin'
+    password: 'qwerdf'
+# 开发环境
+development:
+  <<: *defaults
+  # # 仅开发环境使用！指定的登录用户。当设定此项后，可以不需要登录验证，默认以此用户登录，方便开发。
+  current_user:
+    id: your-user-id
+    username: your-username
+    department_id: your-department-id
+    branch_office_id: your-branch-office-id
+    name_cn: your-chinese-name
+
+# 测试环境
+test:
+  <<: *defaults
+
+# 生产环境
+production:
+  <<: *defaults

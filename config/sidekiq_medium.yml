@@ -1,0 +1,6 @@
+
+---
+:concurrency: 60
+:timeout: 25
+:queues:
+  - ["medium", 2]

@@ -1,0 +1,12 @@
+en:
+  api:
+    response_message:
+      success: Success
+      failed: Failed
+      auth_failed: Auth Failed
+      api_params_error: API Params Error
+      cmd_validate_error: Command Validate Error
+      cmd_validate_mix_error: Command Validate Mix Error
+      cmd_validate_invalid_error: Command Validate Invalid Error
+      cmd_validate_required_error: Command Validate Required Error
+      authorize_failed: Permission Verification Failed
