@@ -4765,3 +4765,142 @@ Processing by V1::BookAPI/book/search_book_income
   Grape::Exceptions::ValidationErrors: book_id is missing, book_id is empty
 Completed 500 in 71.98ms
 
+Started POST "/api/v1/user/manage/set_user_amount?user_id=1&balance=100" for ::1 at 2023-07-10 01:53:38 +0800
+  [1m[35m (7.9ms)[0m  [1m[34mSELECT `schema_migrations`.`version` FROM `schema_migrations` ORDER BY `schema_migrations`.`version` ASC[0m
+
+Started POST "/api/v1/user/manage/set_user_amount" at 2023-07-10 01:53:39 +0800
+Processing by V1::UserAPI/user/manage/set_user_amount
+  Parameters: {"user_id"=>"1", "balance"=>"100"}
+  [1m[36mUser Load (6.5ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/commands/v1/user/manage/set_user_amount_command.rb:25:in `perform'
+  [1m[36mAccount Load (6.8ms)[0m  [1m[34mSELECT `accounts`.* FROM `accounts` WHERE `accounts`.`user_id` = 1 LIMIT 1[0m
+  ↳ app/commands/v1/user/manage/set_user_amount_command.rb:26:in `perform'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/commands/v1/user/manage/set_user_amount_command.rb:26:in `perform'
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/commands/v1/user/manage/set_user_amount_command.rb:26:in `perform'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/commands/v1/user/manage/set_user_amount_command.rb:26:in `perform'
+Completed 201 in 552.75ms
+
+Started POST "/api/v1/borrow/create_borrow_book_order?user_id=1&book_id=43" for ::1 at 2023-07-10 01:53:43 +0800
+
+Started POST "/api/v1/borrow/create_borrow_book_order" at 2023-07-10 01:53:43 +0800
+Processing by V1::BorrowAPI/borrow/create_borrow_book_order
+  Parameters: {"user_id"=>"1", "book_id"=>"43"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:21:in `data_check'
+  [1m[36mAccount Load (0.3ms)[0m  [1m[34mSELECT `accounts`.* FROM `accounts` WHERE `accounts`.`user_id` = 1 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:24:in `data_check'
+  [1m[36mBook Load (3.0ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 43 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:43:in `find_book'
+  [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 43 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:43:in `find_book'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:62:in `block in create_related_data'
+  [1m[36mAccount Load (0.5ms)[0m  [1m[34mSELECT `accounts`.* FROM `accounts` WHERE `accounts`.`id` = 172 LIMIT 1[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:62:in `block in create_related_data'
+  [1m[36mCACHE Book Load (0.1ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 43 LIMIT 1[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:62:in `block in create_related_data'
+  [1m[36mOrder Create (11.6ms)[0m  [1m[32mINSERT INTO `orders` (`account_id`, `status`, `book_id`, `borrowed_at`, `amount`, `created_at`, `updated_at`) VALUES (172, 0, 43, '2023-07-09 17:53:43', 1.0, '2023-07-09 17:53:43.409597', '2023-07-09 17:53:43.409597')[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:62:in `block in create_related_data'
+  [1m[36mDailyProfit Load (5.6ms)[0m  [1m[34mSELECT `daily_profits`.* FROM `daily_profits` WHERE `daily_profits`.`year` = 2023 AND `daily_profits`.`month` = 7 AND `daily_profits`.`day` = 10 AND `daily_profits`.`book_id` = 43 LIMIT 1[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:71:in `block in create_related_data'
+  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 43 LIMIT 1[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:75:in `block in create_related_data'
+  [1m[36mDailyProfit Create (1.6ms)[0m  [1m[32mINSERT INTO `daily_profits` (`book_id`, `year`, `month`, `day`, `amount`, `created_at`, `updated_at`) VALUES (43, 2023, 7, 10, 1.0, '2023-07-09 17:53:43.446276', '2023-07-09 17:53:43.446276')[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:75:in `block in create_related_data'
+  [1m[36mMonthlySummary Load (6.9ms)[0m  [1m[34mSELECT `monthly_summaries`.* FROM `monthly_summaries` WHERE `monthly_summaries`.`user_id` = 1 AND `monthly_summaries`.`month` = 7 AND `monthly_summaries`.`year` = 2023 LIMIT 1[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:77:in `block in create_related_data'
+  [1m[36mMonthlySummary Update (3.4ms)[0m  [1m[33mUPDATE `monthly_summaries` SET `monthly_summaries`.`amount_spent` = 2.0, `monthly_summaries`.`number_of_borrow` = 2, `monthly_summaries`.`updated_at` = '2023-07-09 17:53:43.473467' WHERE `monthly_summaries`.`id` = 34[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:84:in `block in create_related_data'
+  [1m[36mBook Update (1.5ms)[0m  [1m[33mUPDATE `books` SET `books`.`inventory` = 9, `books`.`updated_at` = '2023-07-09 17:53:43.478441' WHERE `books`.`id` = 43[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:89:in `block in create_related_data'
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/commands/v1/borrow/borrow_book_command.rb:56:in `create_related_data'
+Completed 201 in 127.6ms
+
+Started POST "/api/v1/return/return_book?user_id=1&book_id=43" for ::1 at 2023-07-10 01:53:46 +0800
+
+Started POST "/api/v1/return/return_book" at 2023-07-10 01:53:46 +0800
+Processing by V1::ReturnAPI/return/return_book
+  Parameters: {"user_id"=>"1", "book_id"=>"43"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:21:in `data_check'
+  [1m[36mAccount Load (0.3ms)[0m  [1m[34mSELECT `accounts`.* FROM `accounts` WHERE `accounts`.`user_id` = 1 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:24:in `data_check'
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 43 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:43:in `find_book'
+  [1m[36mOrder Load (2.0ms)[0m  [1m[34mSELECT `orders`.* FROM `orders` WHERE `orders`.`account_id` = 172 AND `orders`.`status` = 0 AND `orders`.`book_id` = 43 LIMIT 1[0m
+  ↳ app/commands/v1/return/return_book_command.rb:30:in `perform'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/commands/v1/return/return_book_command.rb:39:in `perform'
+  [1m[36mAccount Load (0.3ms)[0m  [1m[34mSELECT `accounts`.* FROM `accounts` WHERE `accounts`.`id` = 172 LIMIT 1[0m
+  ↳ app/commands/v1/return/return_book_command.rb:39:in `perform'
+  [1m[36mCACHE Book Load (0.0ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 43 LIMIT 1[0m
+  ↳ app/commands/v1/return/return_book_command.rb:39:in `perform'
+  [1m[36mOrder Update (2.1ms)[0m  [1m[33mUPDATE `orders` SET `orders`.`status` = 1, `orders`.`actual_return_time` = '2023-07-09 17:53:46', `orders`.`updated_at` = '2023-07-09 17:53:46.519609' WHERE `orders`.`id` = 42[0m
+  ↳ app/commands/v1/return/return_book_command.rb:39:in `perform'
+  [1m[36mTRANSACTION (1.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/commands/v1/return/return_book_command.rb:39:in `perform'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/commands/v1/return/return_book_command.rb:46:in `perform'
+  [1m[36mBook Update (0.4ms)[0m  [1m[33mUPDATE `books` SET `books`.`inventory` = 10, `books`.`updated_at` = '2023-07-09 17:53:46.525712' WHERE `books`.`id` = 43[0m
+  ↳ app/commands/v1/return/return_book_command.rb:46:in `perform'
+  [1m[36mTRANSACTION (1.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/commands/v1/return/return_book_command.rb:46:in `perform'
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/commands/v1/return/return_book_command.rb:57:in `perform'
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/commands/v1/return/return_book_command.rb:57:in `perform'
+  [1m[36mAccount Update (1.3ms)[0m  [1m[33mUPDATE `accounts` SET `accounts`.`balance` = 99.0, `accounts`.`updated_at` = '2023-07-09 17:53:46.536514' WHERE `accounts`.`id` = 172[0m
+  ↳ app/commands/v1/return/return_book_command.rb:57:in `perform'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/commands/v1/return/return_book_command.rb:57:in `perform'
+Completed 201 in 34.3ms
+
+Started GET "/api/v1/user/info/search?user_id=1" for ::1 at 2023-07-10 01:53:49 +0800
+
+Started GET "/api/v1/user/info/search" at 2023-07-10 01:53:49 +0800
+Processing by V1::UserAPI/user/info/search
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (3.3ms)[0m  [1m[34mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  ↳ app/commands/v1/user/info/search_command.rb:24:in `perform'
+  [1m[36mAccount Load (0.4ms)[0m  [1m[34mSELECT `accounts`.* FROM `accounts` WHERE `accounts`.`user_id` = 1 LIMIT 1[0m
+  ↳ app/commands/v1/user/info/search_command.rb:25:in `perform'
+Completed 200 in 15.24ms
+
+  [1m[36mOrder Load (0.5ms)[0m  [1m[34mSELECT `orders`.* FROM `orders` WHERE `orders`.`account_id` = 172[0m
+  ↳ app/api/response_info.rb:38:in `to_json'
+Started GET "/api/v1/book/search_book_income" for ::1 at 2023-07-10 01:53:52 +0800
+
+Started GET "/api/v1/book/search_book_income" at 2023-07-10 01:53:52 +0800
+Processing by V1::BookAPI/book/search_book_income
+  Parameters: {}
+  Grape::Exceptions::ValidationErrors: book_id is missing, book_id is empty
+Completed 500 in 3.84ms
+
+Started GET "/api/v1/book/search_book_income?book_id=42" for ::1 at 2023-07-10 01:53:57 +0800
+
+Started GET "/api/v1/book/search_book_income" at 2023-07-10 01:53:57 +0800
+Processing by V1::BookAPI/book/search_book_income
+  Parameters: {"book_id"=>"42"}
+  [1m[36mBook Load (0.4ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 42 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:43:in `find_book'
+  [1m[36mOrder Exists? (0.2ms)[0m  [1m[34mSELECT 1 AS one FROM `orders` WHERE `orders`.`book_id` = 42 LIMIT 1[0m
+  ↳ app/commands/v1/book/search_command.rb:52:in `deal_query_time'
+Completed 200 in 6.78ms
+
+Started GET "/api/v1/book/search_book_income?book_id=43" for ::1 at 2023-07-10 01:54:19 +0800
+
+Started GET "/api/v1/book/search_book_income" at 2023-07-10 01:54:19 +0800
+Processing by V1::BookAPI/book/search_book_income
+  Parameters: {"book_id"=>"43"}
+  [1m[36mBook Load (0.3ms)[0m  [1m[34mSELECT `books`.* FROM `books` WHERE `books`.`id` = 43 LIMIT 1[0m
+  ↳ app/commands/application_command.rb:43:in `find_book'
+  [1m[36mOrder Exists? (0.3ms)[0m  [1m[34mSELECT 1 AS one FROM `orders` WHERE `orders`.`book_id` = 43 LIMIT 1[0m
+  ↳ app/commands/v1/book/search_command.rb:52:in `deal_query_time'
+  [1m[35m (1.1ms)[0m  [1m[34mSELECT SUM(`daily_profits`.`amount`) FROM `daily_profits` WHERE `daily_profits`.`book_id` = 43[0m
+  ↳ app/commands/v1/book/search_command.rb:38:in `compute_book_amount'
+Completed 200 in 5.76ms
+

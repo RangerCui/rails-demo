@@ -21,10 +21,10 @@ git clone git@github.com:RangerCui/rails-demo.git
 # 1. Install the corresponding ruby version, using rvm as an example
 rvm install 2.7.3 # Refer to the version in the.ruby-version file
 
-# 3. Replace the default Settings locally
+# 2. change the database or configuration config/Settings/application.yml
 cp config/settings/application.yml.sample config/settings/application.yml
 
-# 4. Start the service (interface service domain name is localhost:3000)
+# 3. Start the service (interface service domain name is localhost:3000)
 rails s
 
 ```
