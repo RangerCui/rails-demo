@@ -31,9 +31,10 @@ rails s
 
 <br />
 
-## Static check
-
-This project through [rubocop] (https://github.com/rubocop/rubocop) as a static checking tool
+## Init test data
+```
+rails runner bin/script/20230709186511257_init_user_book_account_data.rb
+```
 
 ## Basic system module flow design drawing
 View file **system_flow_chart.puml**
@@ -125,6 +126,36 @@ GET /user/info/search
 
 Search user info
 
+#### Involved module
+```
+.
+├── .vscode
+├── app
+│   ├── api
+│   │   ├── v1
+│   │   │   └── main.rb
+│   │   │   └── user_api.rb
+│   │   ├── user
+│   │   │   └── info_api.rb
+│   │   ├── entities
+│   │   │   ├── user
+│   │   │   │   └── user_detail_info.rb
+│   ├── commands
+│   │   ├── v1
+│   │   │   └── commands
+│   │   │   │   ├── user
+│   │   │   │   │   ├──info
+│   │   │   │   |   │   └── search_command.rb # Business processing
+│   ├── services
+│   │   └── bid_ms
+├── spec
+│   ├── commands
+│   │   ├── user
+│   │   │   ├── info
+│   │   │   │    └── search_command_spec.rb # UT
+
+```
+
 #### Parameters
 
 | Name    | Type    | Required | Description         |
@@ -188,6 +219,36 @@ POST /user/manage/set_user_amount
 
 Set the user account amount
 
+#### Involved module
+```
+.
+├── .vscode
+├── app
+│   ├── api
+│   │   ├── v1
+│   │   │   └── main.rb
+│   │   │   └── user_api.rb
+│   │   ├── user
+│   │   │   └── info_api.rb
+│   │   ├── entities
+│   │   │   ├── user
+│   │   │   │   └── info.rb
+│   ├── commands
+│   │   ├── v1
+│   │   │   └── commands
+│   │   │   │   ├── user
+│   │   │   │   │   ├──manage
+│   │   │   │   │   │   └── set_user_amount_command.rb # Business processing
+│   ├── services
+│   │   └── bid_ms
+├── spec
+│   ├── commands
+│   │   ├── user
+│   │   │   ├── manage
+│   │   │   │    └── set_user_amount_command_spec.rb # UT
+
+```
+
 #### Parameters
 
 | Name    | Type    | Required | Description           |
@@ -229,7 +290,33 @@ POST /borrow/create_borrow_book_order
 
 Borrow books
 
-esign idea:
+#### Involved module
+```
+.
+├── .vscode
+├── app
+│   ├── api
+│   │   ├── v1
+│   │   │   └── main.rb
+│   │   │   └── borrow_api.rb
+│   │   ├── entities
+│   │   │   ├── order
+│   │   │   │   └── info.rb
+│   ├── commands
+│   │   ├── v1
+│   │   │   └── commands
+│   │   │   │   ├── borrow
+│   │   │   │   │   └── borrow_book_command.rb # Business processing
+│   ├── services
+│   │   └── bid_ms
+├── spec
+│   ├── commands
+│   │   ├── borrow
+│   │   │   └── borrow_book_command_spec.rb # UT
+
+```
+
+Design idea:
 Considering that the volume of book collection in the library reaches a certain level, when a large number of concurrent requests enter the server, the response time of reducing the corresponding book inventory will be prolonged, so the loan book is modified into the following scheme:
 
 - Introduce Aliyun's form storage to store large amounts of data or use Tencent's tdsql
@@ -290,6 +377,32 @@ POST /return/return_book
 
 Return books
 
+#### Involved module
+```
+.
+├── .vscode
+├── app
+│   ├── api
+│   │   ├── v1
+│   │   │   └── main.rb
+│   │   │   └── return_api.rb
+│   │   ├── entities
+│   │   │   ├── order
+│   │   │   │   └── info.rb
+│   ├── commands
+│   │   ├── v1
+│   │   │   └── commands
+│   │   │   │   ├── return
+│   │   │   │   │   └── return_book_command.rb # Business processing
+│   ├── services
+│   │   └── bid_ms
+├── spec
+│   ├── commands
+│   │   ├── return
+│   │   │   └── return_book_command_spec.rb # UT
+
+```
+
 #### Parameters
 Here it is suggested in the requirements document to use book_id and user_id as parameters, because there is no specific business that specifies whether a user has only one order for a book, so order_id is introduced to uniquely solve the book order
 Carry out the book return process
@@ -341,6 +454,29 @@ GET /book/search_book_income
 ```
 
 Search book income
+
+#### Involved module
+```
+.
+├── .vscode
+├── app
+│   ├── api
+│   │   ├── v1
+│   │   │   └── main.rb
+│   │   │   └── book_api.rb
+│   ├── commands
+│   │   ├── v1
+│   │   │   └── commands
+│   │   │   │   ├── book
+│   │   │   │   │   └── search_command.rb # Business processing
+│   ├── services
+│   │   └── bid_ms
+├── spec
+│   ├── commands
+│   │   ├── book
+│   │   │   └── search_command_command_spec.rb # UT
+
+```
 
 Design idea:
 When the profits of a book are queried for a short period of time due to the rapid increase in the number of lending staff and books and the number of orders, there is a risk that the scanning cost will be too large and the query will be slow. Therefore, the intermediate table daily_profits table will be introduced.
