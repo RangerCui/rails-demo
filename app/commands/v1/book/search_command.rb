@@ -24,7 +24,7 @@ module V1
         # query book
         find_book
 
-        # compote book amount
+        # compute book amount
         compute_book_amount
       end
 

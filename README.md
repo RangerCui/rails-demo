@@ -87,7 +87,7 @@ over the method/class name of the document you want to generate and press the sh
 
 ```sh
 # Run the following command to view the UT coverage
-pen coverage/index.html
+open coverage/index.html
 ```
 
 ```sh
