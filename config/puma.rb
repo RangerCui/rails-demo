@@ -24,6 +24,20 @@ environment ENV.fetch('RAILS_ENV', 'development')
 # Specifies the `pidfile` that Puma will use.
 pidfile ENV.fetch('PIDFILE', 'tmp/pids/server.pid')
 
+if ENV['RAILS_ENV'] == 'production'
+  app_root = '/home/ubuntu/rails-demo'
+  pidfile "#{app_root}/tmp/pids/puma.pid"
+  state_path "#{app_root}/tmp/pids/puma.state"
+  bind "unix://#{app_root}/tmp/sockets/puma.sock"
+  activate_control_app "unix://#{app_root}/tmp/sockets/pumactl.sock"
+  daemonize true
+  workers 2
+  threads 8, 16
+  prune_bundler
+
+  stdout_redirect "#{app_root}/log/puma_access.log", "#{app_root}/log/puma_error.log", true
+end
+
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked web server processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.
