@@ -1,0 +1,5 @@
+set :domain, '122.51.110.136'
+set :deploy_to, '/home/ubuntu/rails-demo'
+set :repository,  'https://github.com/RangerCui/rails-demo'
+set :branch, 'master'
+set :user, 'ubuntu'
