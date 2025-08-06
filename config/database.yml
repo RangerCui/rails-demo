@@ -5,17 +5,16 @@ database: &database
     encoding: utf8
     reconnect: false
     host: localhost
-    database: rails-demo-db
+    database: rails_demo_db
     pool: 5
     username: root
-    password: 123456
+    password:
     port: 3306
 
 production:
   <<: *database
 
 development:
-  <<: *database
   <<: *database
 
 test:
@@ -26,6 +25,6 @@ test:
     database: rails_demo_test
     pool: 5
     username: root
-    password: 123456
-    host: 127.0.0.1
+    password: '9R5E7W'
+    host: localhost
     port: 3306
